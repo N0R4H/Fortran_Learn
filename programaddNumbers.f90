@@ -9,8 +9,8 @@ program addNumbers
    real :: a, b, result
 
 ! Executable statements
-   a = 121.0
-   b = 15.0
+   a = 11.0
+   b = 14.0
    result = a + b
    print *, 'The total is ', result
 
