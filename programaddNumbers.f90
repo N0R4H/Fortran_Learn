@@ -6,12 +6,13 @@ program addNumbers
    implicit none
 
 ! Type declarations
-   real :: a, b, result
+   INTEGER(KIND = 2) :: a, b, result
 
 ! Executable statements
    a = 11.0
    b = 14.0
    result = a + b
-   print *, 'The total is ', result
+   print *, "The total is ", result
 
 end program addNumbers
+
