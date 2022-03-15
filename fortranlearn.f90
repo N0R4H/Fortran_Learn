@@ -25,6 +25,7 @@ program fortranlean
 
 	INTEGER*4 ::a = 2
 	INTEGER ::g = 1
+	INTEGER ::k 
 	b = (/1,2,3,4,5/)
 	f = (/ (g, g = 1, 40,2) /)		!kind of like a list comprehension, of 20 storage.
 	
@@ -72,7 +73,19 @@ program fortranlean
 		end if
 		print *, a
 	end do
+	a = a+1+&			!& is not and bitwise!! but a continuation character for next line
+	23
 
 	!logical operators -> .{OPERATOR}. syntax
+	! for eg:- .and., 
+
+	! READ *, k    -> INPUT
+	! WRITE (*,*) k -> OUTPUT (NOTE the variable implicit type must be mentioned.
+
+
+	!FORTRAN INTRINSIC FUNCTIONS
+	!SQRT(X), SIN(X), COS(X), TAN(X)
+
+
 
 end program fortranlean
