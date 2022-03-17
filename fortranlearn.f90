@@ -10,7 +10,7 @@ program fortranlean
 	REAL(KIND = SELECTED_REAL_KIND(10,34))::area, radius	
 	REAL, PARAMETER :: PI = 3.141592656869
 	REAL, dimension(3:7) ::b		! array consisting of indices from 3 to 7
-	REAL, dimension(20)  ::f			! array of 20 storage slots
+	REAL, dimension(20)  ::f		! array of 20 storage slots
 
 	!G77 AND NAG COMPILERS              MOST COMMON COMPILERS
 	!KIND 	BYTES                         KIND         BYTES
@@ -26,9 +26,6 @@ program fortranlean
 	INTEGER*4 ::a = 2
 	INTEGER ::g = 1
 	INTEGER ::k 
-	b = (/1,2,3,4,5/)
-	f = (/ (g, g = 1, 40,2) /)		!kind of like a list comprehension, of 20 storage.
-	
 
 	radius = 43.12
 	!READ (5, *) radius
@@ -86,6 +83,11 @@ program fortranlean
 	!FORTRAN INTRINSIC FUNCTIONS
 	!SQRT(X), SIN(X), COS(X), TAN(X)
 
+	!arrays
 
-
+	b = (/1,2,3,4,5/)
+	f = (/ (g, g = 1, 40,2) /)		!kind of like a list comprehension, of 20 storage.
+	f = f+ 14                       !ADD 14 TO ALL ARRAY ELEMENTS LIKE BROADCASTING
+	f+b
+	print *,f
 end program fortranlean
