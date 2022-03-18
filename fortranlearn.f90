@@ -6,11 +6,12 @@ program fortranlean
 
 	!kind parameter specifies the precision of a variable type
 	! SELECTED_REAL_KIND(a,b)) =>  (a^-b <---> a^b)
-
+	!ALL DECLARATIONS NEED TO PRECEDEDE ALL THE EXECTUABLE STATEMENTS
 	REAL(KIND = SELECTED_REAL_KIND(10,34))::area, radius	
 	REAL, PARAMETER :: PI = 3.141592656869
 	REAL, dimension(3:7) ::b		! array consisting of indices from 3 to 7
 	REAL, dimension(20)  ::f		! array of 20 storage slots
+	INTEGER, ALLOCATABLE, dimension(:) ::l !allocatable type allows dynamic sizing 
 
 	!G77 AND NAG COMPILERS              MOST COMMON COMPILERS
 	!KIND 	BYTES                         KIND         BYTES
@@ -84,10 +85,11 @@ program fortranlean
 	!SQRT(X), SIN(X), COS(X), TAN(X)
 
 	!arrays
-
+	
 	b = (/1,2,3,4,5/)
 	f = (/ (g, g = 1, 40,2) /)		!kind of like a list comprehension, of 20 storage.
 	f = f+ 14                       !ADD 14 TO ALL ARRAY ELEMENTS LIKE BROADCASTING
-	f+b
-	print *,f
+	l = (/(g, g = 1, 41, 2)/)
+	
+	
 end program fortranlean
