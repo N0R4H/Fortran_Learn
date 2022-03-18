@@ -43,6 +43,7 @@ program fortranlean
 	INTEGER ::j
 	REAL :: output=3,input=5 
 	INTEGER :: func
+	external abc
 
 	radius = 43.12
 	!READ (5, *) radius
@@ -129,7 +130,7 @@ program fortranlean
 	print *, rank(l)	!=> 1; array is 1D
 
 	!SUBROUTINES and FUNCTIONS
-
+	!need to explicitly mention external type for subroutines, for external procedure
 	!SUBROUTINE  NAME(*PARAMETERS)
 		!DATATYPE intent(in) :: input	!if intent is 'in', the input is CONSTANT
 		!DATATYPE intent(out) :: output		!if intent is 'out' the output can be MODIFIED
