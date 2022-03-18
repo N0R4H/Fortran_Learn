@@ -13,6 +13,7 @@ program fortranlean
 	REAL, dimension(20)  ::f		! array of 20 storage slots
 	INTEGER, ALLOCATABLE, dimension(:) ::l !allocatable type allows dynamic sizing 
 
+	INTEGER, ALLOCATABLE, dimension(:,:)::M
 	!G77 AND NAG COMPILERS              MOST COMMON COMPILERS
 	!KIND 	BYTES                         KIND         BYTES
 	!2^0  1    2^0	  1                     1            2^(1-1) =  1 
@@ -85,11 +86,24 @@ program fortranlean
 	!SQRT(X), SIN(X), COS(X), TAN(X)
 
 	!arrays
+
+	!RANKS -> NUMBER OF DIMENSIONS
+	!EXTENT-> Extent or range of the dimension
+	!SHAPE -> GIVES AN array of the extend of all dimensions of the array
+	!SIZE -> GIVES TOTAL NUMBER OF ELEMENTS 
 	
 	b = (/1,2,3,4,5/)
 	f = (/ (g, g = 1, 40,2) /)		!kind of like a list comprehension, of 20 storage.
 	f = f+ 14                       !ADD 14 TO ALL ARRAY ELEMENTS LIKE BROADCASTING
-	l = (/(g, g = 1, 41, 2)/)
 	
+	l = (/(g, g = 1, 3, 1)/)
+	l = (/(l, g=1,3,1)/)
+	print *,l
+
+
+	!M = (/ (l, g = 1, 10, 1) /)
+
+
+
 	
 end program fortranlean
