@@ -1,6 +1,13 @@
 
 ! FORTRAN (FORmula TRANsistor) created in 1954
 
+SUBROUTINE abc(input, output)
+		REAL, INTENT(IN) :: input
+		REAL, INTENT(OUT):: output
+		output = output**2 + output*input
+	end subroutine
+
+
 program fortranlean
 	IMPLICIT NONE	!When enabled, variable types must be explicitly mentioned
 
@@ -12,8 +19,7 @@ program fortranlean
 	REAL, dimension(3:7) ::b		! array consisting of indices from 3 to 7
 	REAL, dimension(20)  ::f		! array of 20 storage slots
 	INTEGER, ALLOCATABLE, dimension(:) ::l !allocatable type allows dynamic sizing 
-
-	INTEGER, ALLOCATABLE, dimension(:,:)::M
+	INTEGER , dimension(3,3)::M
 	!G77 AND NAG COMPILERS              MOST COMMON COMPILERS
 	!KIND 	BYTES                         KIND         BYTES
 	!2^0  1    2^0	  1                     1            2^(1-1) =  1 
@@ -28,6 +34,9 @@ program fortranlean
 	INTEGER*4 ::a = 2
 	INTEGER ::g = 1
 	INTEGER ::k 
+	INTEGER ::i
+	INTEGER ::j
+	REAL :: output=3,input=5 
 
 	radius = 43.12
 	!READ (5, *) radius
@@ -87,8 +96,7 @@ program fortranlean
 
 	!arrays
 
-	!RANKS -> NUMBER OF DIMENSIONS
-	!EXTENT-> Extent or range of the dimension
+	!RANKS -> NUMBER OF DIMENSIONS eg:= np.ndim([[1,2], [3,4]]) => 2
 	!SHAPE -> GIVES AN array of the extend of all dimensions of the array
 	!SIZE -> GIVES TOTAL NUMBER OF ELEMENTS 
 	
@@ -97,13 +105,37 @@ program fortranlean
 	f = f+ 14                       !ADD 14 TO ALL ARRAY ELEMENTS LIKE BROADCASTING
 	
 	l = (/(g, g = 1, 3, 1)/)
-	l = (/(l, g=1,3,1)/)
+	l = (/(l, g=1,3,1)/)		    ! l gets extended 3 times
 	print *,l
 
+	do i = 1,3
+		do j = 1,3
+			M(i, j) = 1
+		end do
+	end do
 
-	!M = (/ (l, g = 1, 10, 1) /)
+	do i = 1,3		
+			print *, M(i,:)	!printing matrix
+	end do
+	print *, size(M)	! total number of elements in matrix
+	print *, shape(M)	!=> (/3, 3/)  3x3 matrix
+	print *, rank(M)	!=> 2; matrix is 2D
+	print *, rank(l)	!=> 1; array is 1D
+
+	!SUBROUTINES and FUNCTIONS
+
+	!SUBROUTINE  NAME(*PARAMETERS)
+		!DATATYPE intent(in) :: input	!if intent is 'in', the input is CONSTANT
+		!DATATYPE intent(out) :: output		!if intent is 'out' the output can be MODIFIED and is returned
+		!DATATYPE intent(inout):: io  !if intent is 'inout', it can be modified or set and returned
+
+	!END SUBROUTINE
 
 
+	print *, "Input and output are",input,output
+	call abc(input, output)
+	print *,"After calling subroutine, input and output are",input,output
+	
 
 	
 end program fortranlean
