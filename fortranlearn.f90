@@ -4,9 +4,14 @@
 SUBROUTINE abc(input, output)
 		REAL, INTENT(IN) :: input
 		REAL, INTENT(OUT):: output
+
 		output = output**2 + output*input
 	end subroutine
 
+INTEGER FUNCTION func(a,g) result(k)
+		INTEGER, intent(inout) ::a,g
+		k = a*g + a+g**a
+END FUNCTION
 
 program fortranlean
 	IMPLICIT NONE	!When enabled, variable types must be explicitly mentioned
@@ -37,6 +42,7 @@ program fortranlean
 	INTEGER ::i
 	INTEGER ::j
 	REAL :: output=3,input=5 
+	INTEGER :: func
 
 	radius = 43.12
 	!READ (5, *) radius
@@ -126,8 +132,8 @@ program fortranlean
 
 	!SUBROUTINE  NAME(*PARAMETERS)
 		!DATATYPE intent(in) :: input	!if intent is 'in', the input is CONSTANT
-		!DATATYPE intent(out) :: output		!if intent is 'out' the output can be MODIFIED and is returned
-		!DATATYPE intent(inout):: io  !if intent is 'inout', it can be modified or set and returned
+		!DATATYPE intent(out) :: output		!if intent is 'out' the output can be MODIFIED
+		!DATATYPE intent(inout):: io  !if intent is 'inout', BOTH ARE MODIFIABLE
 
 	!END SUBROUTINE
 
@@ -135,7 +141,39 @@ program fortranlean
 	print *, "Input and output are",input,output
 	call abc(input, output)
 	print *,"After calling subroutine, input and output are",input,output
-	
 
-	
+	!FUNCTIONS
+	!need to explicitly (implicit none) state datatype of function before
+	!Different ways to express a function
+	!
+	!!Explicitly mentioning the result variable and result type:
+	!function name(i) result(j)
+	!	datatype intent(in) :: i !immutable 
+	!	datatype name:: j
+	!   j = {operation involving i}
+	!end function
+
+	!!Explicitly mentioning function type and result type
+	!datatype function name(i) result(j)
+	!	datatype intent(in) :: i !immutable 
+	!   j = {operation involving i}
+	!end function
+
+	!!Explicitly mentioning function variable and function type 
+	!datatype function name(i)
+	!	datatype intent(in) :: i !immutable 
+	!   name = {operation involving i}
+	!end function
+
+	!!Explicitly mentioning function result and function variable 
+	!function name(i)
+	!	datatype intent(in) :: i !immutable 
+	!	datatype 			:: name
+	!   name = {operation involving i}
+	!end function
+
+	!preferable 2
+	print *, func(a,g)
+
+
 end program fortranlean
