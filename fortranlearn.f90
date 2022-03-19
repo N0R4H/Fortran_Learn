@@ -1,17 +1,33 @@
 
 ! FORTRAN (FORmula TRANsistor) created in 1954
-
-SUBROUTINE abc(input, output)
-		REAL, INTENT(IN) :: input
-		REAL, INTENT(OUT):: output
-
+ SUBROUTINE abc(input, output)
+		REAL, INTENT(INOUT) :: input,output
+	
 		output = output**2 + output*input
+		input  = input +3
 	end subroutine
 
 INTEGER FUNCTION func(a,g) result(k)
 		INTEGER, intent(inout) ::a,g
 		k = a*g + a+g**a
 END FUNCTION
+
+
+INTEGER*8 RECURSIVE FUNCTION FACT(i) result(j)
+	INTEGER, intent(in) :: i
+	if (i == 1)then
+		j = 1
+	else 
+		j = i*FACT(i-1)
+	end if
+end function
+
+pure INTEGER*2 FUNCTION test(i) result(j)
+	INTEGER, intent(in) :: i
+	!i = i + 1
+	j = i+1
+end function
+
 
 program fortranlean
 	IMPLICIT NONE	!When enabled, variable types must be explicitly mentioned
@@ -35,6 +51,7 @@ program fortranlean
 	!
 	! Hence INTEGER(KIND = 4) could be 4 or 8 bytes depending on the compiler
 	! However INTEGER*4 WILL ALWAYS BE 4BYTES
+	! INTEGER*N variable belongs to (-2**8n-1, 2**8*n-1), N bytes = 8N bits
 
 	INTEGER*4 ::a = 2
 	INTEGER ::g = 1
@@ -43,6 +60,8 @@ program fortranlean
 	INTEGER ::j
 	REAL :: output=3,input=5 
 	INTEGER :: func
+	INTEGER*8 :: FACT
+	INTEGER*2 :: test
 	external abc
 
 	radius = 43.12
@@ -176,5 +195,22 @@ program fortranlean
 	!preferable 2
 	print *, func(a,g)
 
+
+	!RECURSION FUNCTION
+	!recursive type needs to be declared explicitly, unlike c++,py
+	!datatyoe recursuve function name(i) result(j)
+	!	datatype intent(in) :: i
+	!	if condn:
+	!		j = operation involving i,j and name
+	!	end for
+	!end function 
+	print*, FACT(20)
+
+	!PURE FUNCTIONS
+	!Arguments passed are immutable in such functions and these functions
+	!do not have any SIDE EFFECTS on any global data
+	print *, "Input is ..",a
+	print*, 'testing..',test(a)
+	print*, "Input is .. ",a
 
 end program fortranlean
